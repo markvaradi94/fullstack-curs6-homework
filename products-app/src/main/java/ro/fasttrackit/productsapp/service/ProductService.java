@@ -22,14 +22,7 @@ public class ProductService {
     }
 
     public List<Product> getProducts(String categoryName, Double maxPrice) {
-        if (categoryName != null && maxPrice == null) {
-            return filterProductsByCategory(categoryName);
-        } else if (categoryName == null && maxPrice != null) {
-            return filterProductsByMaxPrice(maxPrice);
-        } else if (categoryName != null) {
-            return filterProductByCategoryAndMaxPrice(categoryName, maxPrice);
-        }
-        return allProducts();
+        return checkRequestParams(categoryName, maxPrice);
     }
 
     public Product addProduct(Product newProduct) {
@@ -66,4 +59,17 @@ public class ProductService {
         return ProductCategory.getCategoryByName(categoryName)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find product category."));
     }
+
+    private List<Product> checkRequestParams(String categoryName, Double maxPrice) {
+        if (categoryName != null && maxPrice == null) {
+            return filterProductsByCategory(categoryName);
+        } else if (categoryName == null && maxPrice != null) {
+            return filterProductsByMaxPrice(maxPrice);
+        } else if (categoryName != null) {
+            return filterProductByCategoryAndMaxPrice(categoryName, maxPrice);
+        } else {
+            return allProducts();
+        }
+    }
 }
+
