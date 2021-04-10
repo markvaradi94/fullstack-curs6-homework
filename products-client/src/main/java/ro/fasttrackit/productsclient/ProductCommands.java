@@ -3,11 +3,12 @@ package ro.fasttrackit.productsclient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import ro.fasttrackit.productsclient.enums.ProductCategory;
 import ro.fasttrackit.productsclient.model.Product;
 import ro.fasttrackit.productsclient.service.ProductService;
 
 import java.util.Scanner;
+
+import static ro.fasttrackit.productsclient.enums.ProductCategory.ELECTRONICS;
 
 @ShellComponent
 @RequiredArgsConstructor
@@ -42,14 +43,14 @@ public class ProductCommands {
     void getProduct() {
         System.out.print("id: ");
         Scanner scanner = new Scanner(System.in);
-        int lookupId = scanner.nextInt();
+        long lookupId = scanner.nextLong();
         System.out.println(productService.getProductById(lookupId));
     }
 
     @ShellMethod("Add new product")
     void addProduct() {
         System.out.println(productService.addProduct(
-                new Product(100, "Vacuum Cleaner", 350.50, "Very good", ProductCategory.ELECTRONICS)
+                new Product(100, "Vacuum Cleaner", 350.50, "Very good", ELECTRONICS)
         ));
     }
 
