@@ -5,11 +5,8 @@ import ro.fasttrackit.productsapp.domain.Product;
 import ro.fasttrackit.productsapp.enums.ProductCategory;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    Optional<Product> findById(Long productId);
 
     List<Product> findAllByProductCategory(ProductCategory category);
 
